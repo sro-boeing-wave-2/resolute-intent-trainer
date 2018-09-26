@@ -1,0 +1,16 @@
+language: node_js
+notifications:
+  slack: theselftalk:EHiDWYYgq34Y172TrHTqA16W
+node_js:
+  - stable
+services:
+  - docker
+before_script:
+  - docker-compose -f docker-compose.test.yml up --build -d
+install:
+  - yarn install
+script:
+  - yarn lint
+  - yarn test
+after_success:
+  - yarn run coverage

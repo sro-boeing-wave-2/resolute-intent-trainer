@@ -1,0 +1,27 @@
+[
+    {
+        
+        "intent": "I Know what happens",
+        "description": "uyduawwrfraeu",
+        "expressions":[
+      { "source": "Hiii", "language": { "isocode": "en" } },
+      { "source": "whatsup", "language": { "isocode": "en" } }
+    ]
+    },
+    {
+        "intent": "I am the world",
+        "description": "ending conversation",
+        "expressions": [
+      { "source": "ohi", "language": { "isocode": "en" } },
+      { "source": "OHI", "language": { "isocode": "en" } }
+    ]
+    },
+    {
+        "intent": "Vampires",
+        "description": "having some sort of issue",
+        "expressions": [
+      { "source": "blah", "language": {"isocode": "en" } },
+      { "source": "blah", "language": { "isocode": "en" } }
+    ]	
+    }
+]
