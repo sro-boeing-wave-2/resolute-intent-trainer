@@ -3,6 +3,7 @@ const { USER_SLUG, BOT_SLUG, RABBITMQ_QUEUE} = require('./app.config');
 const amqplib = require('amqplib')
 const services = require('./RecastFunctions');
 
+
 const open = amqplib.connect('amqp://localhost');
 open.then(function (conn) {
   return conn.createChannel();
@@ -20,7 +21,7 @@ open.then(function (conn) {
         else if (route == "update") {
           console.log(data.intent);
           services.
-            AddToIntent(USER_SLUG, BOT_SLUG, data.expression[0], data.intent.toLowerCase())
+            AddToIntent(USER_SLUG, BOT_SLUG, data.expressions[0], data.intent.toLowerCase())
           ch.ack(msg);
         }
       }

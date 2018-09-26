@@ -1,7 +1,6 @@
 var fs = require("fs");
 const services = require('./RecastFunctions');
-const { USER_SLUG, BOT_SLUG } =
-  require('./app.config');
+const { USER_SLUG, BOT_SLUG } = require('./app.config');
 
 exports.action = function () {
   var content = fs.readFileSync('./Data/TrainingData.json', 'utf8');

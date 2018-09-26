@@ -1,4 +1,5 @@
 const { RECAST_AUTHORIZATION } = require('./app.config');
+const request = require('superagent');
 
 exports.CreateIntent = function (USER_SLUG, BOT_SLUG, NAME, DESCRIPTION, QUERY) {
   request
