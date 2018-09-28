@@ -3,9 +3,9 @@ const { USER_SLUG, BOT_SLUG, RABBITMQ_QUEUE} = require('./app.config');
 const amqplib = require('amqplib')
 const services = require('./RecastFunctions');
 
-
+exports.Listner = function() {
 const open = amqplib.connect('amqp://localhost');
-open.then(function (conn) {
+ open.then(function (conn) {
   return conn.createChannel();
 }).then(function (ch) {
   return ch.assertQueue(RABBITMQ_QUEUE).then(function (ok) {
@@ -29,5 +29,5 @@ open.then(function (conn) {
   });
 }).catch(console.warn);
 
-
+}
 

@@ -5,6 +5,7 @@ var app = express();
 let service = require('./recastTrainer');
 const request = require('superagent');
 const { USER_SLUG, BOT_SLUG} = require('./app.config');
+let rabbitmqservice = require('./RabbitMqReceiver');
 
 app.use(busboy());
 app.use(function (req, res, next) {
@@ -12,7 +13,8 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-app.post('/upload', function (req, res) {
+app.post('/intent/upload', function (req, res) {
+    rabbitmqservice.Listner();
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename) {
         var fstream = fs.createWriteStream('./Data/' + filename);
@@ -24,7 +26,7 @@ app.post('/upload', function (req, res) {
     });
 });
 
-app.get('/getIntent', function (req, response) {
+app.get('/intent/getIntent', function (req, response) {
     var data;
     request
         .get(`https://api.recast.ai/v2/users/${USER_SLUG}/bots/${BOT_SLUG}/intents`)
@@ -37,5 +39,6 @@ app.get('/getIntent', function (req, response) {
         });
 })
 var server = app.listen(80, function () {
+
     console.log('Listening on port %d', server.address().port);
 });
