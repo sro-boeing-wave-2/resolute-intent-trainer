@@ -2,9 +2,12 @@ const { USER_SLUG, BOT_SLUG, RABBITMQ_QUEUE,RECAST_AUTHORIZATION } = require('./
 const functions = require('./RecastFunctions');
 const amqplib = require('amqplib');
 const request = require('superagent');
-let recastData = [];
+const dotenv = require('dotenv');
 
-const open = amqplib.connect('amqp://13.126.8.255');
+let recastData = [];
+dotenv.config({ path: './machine_config/.env' });
+console.log(process.env);
+const open = amqplib.connect(`amqp://${process.env.MACHINE_LOCAL_IPV4}`);
 open.then(function (conn) {
   return conn.createChannel();
 }).then(function (ch) {

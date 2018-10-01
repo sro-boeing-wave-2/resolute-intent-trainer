@@ -4,8 +4,10 @@ var fs = require('fs-extra');
 var app = express();
 let service = require('./recastTrainer');
 const request = require('superagent');
-const { USER_SLUG, BOT_SLUG, RECAST_AUTHORIZATION } = require('./app.config');
 let recastData = [];
+const { USER_SLUG, BOT_SLUG, RABBITMQ_QUEUE,RECAST_AUTHORIZATION } = require('./app.config');
+const functions = require('./RecastFunctions');
+const amqplib = require('amqplib');
 
 // SERVER 
 app.use(busboy());
@@ -43,9 +45,12 @@ app.post('/intent/upload', function (req, res) {
     });
 });
 
-var server = app.listen(8080, function () {
+
+var server = app.listen(80, function () {
     console.log('Listening on port %d', server.address().port);
 });
+
+
 
 
 

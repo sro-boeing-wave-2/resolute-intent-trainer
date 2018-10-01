@@ -1,6 +1,7 @@
 const { RECAST_AUTHORIZATION } = require('./app.config');
 const request = require('superagent');
 
+
 exports.CreateIntent = function (USER_SLUG, BOT_SLUG, NAME, DESCRIPTION, QUERY) {
   request
     .post(`https://api.recast.ai/v2/users/${USER_SLUG}/bots/${BOT_SLUG}/intents`)

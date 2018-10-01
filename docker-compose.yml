@@ -5,15 +5,10 @@ services:
     build: ./Server
     labels:
         SERVICE_80_NAME: Intent-Trainer
-        SERVICE_TAG: Intent-Trainer
-    ports:
-      - "3000:8080"      
-    depends_on:
-      - rabbitmq
-  rabbitmq:
-    image: rabbitmq:management
-    container_name: rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
+        SERVICE_TAG: Intent-Trainer       
+  rabbitconsumer:
+    container_name: rabbitconsumer
+    build: ./Server/RabbitMq 
+    volumes: 
+      - "/machine_config:/usr/src/app/machine_config"
                
