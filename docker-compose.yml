@@ -3,6 +3,8 @@ services:
   web:
     container_name: Intent-Trainer
     build: ./Server
+    ports:
+      - "3000:80"
     labels:
         SERVICE_80_NAME: Intent-Trainer
         SERVICE_TAG: Intent-Trainer

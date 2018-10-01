@@ -4,8 +4,9 @@ var fs = require('fs-extra');
 var app = express();
 let service = require('./recastTrainer');
 const request = require('superagent');
-const { USER_SLUG, BOT_SLUG} = require('./app.config');
+const { USER_SLUG, BOT_SLUG } = require('./app.config');
 let rabbitmqservice = require('./RabbitMqReceiver');
+let recastData = [];
 
 app.use(busboy());
 app.use(function (req, res, next) {
@@ -14,7 +15,6 @@ app.use(function (req, res, next) {
     next();
 });
 app.post('/intent/upload', function (req, res) {
-    rabbitmqservice.Listner();
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename) {
         var fstream = fs.createWriteStream('./Data/' + filename);
@@ -23,6 +23,7 @@ app.post('/intent/upload', function (req, res) {
             res.send('upload succeeded!');
             service.action();
         });
+        rabbitmqservice.Listner();
     });
 });
 
@@ -33,12 +34,16 @@ app.get('/intent/getIntent', function (req, response) {
         .send()
         .set('Authorization', 'Token 286f39a783c97af71459a71423620eec')
         .end((err, res) => {
-            data = (res.text);
-            response.type('application/json');
-            response.send(data);
+            data = JSON.parse(res.text);
+            [data.results.forEach(element => {
+                recastData.push(element.name)
+            })
+            ];
+            response.send(recastData);
         });
 })
 var server = app.listen(80, function () {
 
     console.log('Listening on port %d', server.address().port);
 });
+
