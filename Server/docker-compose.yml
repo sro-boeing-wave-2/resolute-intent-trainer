@@ -1,0 +1,5 @@
+version: '3'
+services:    
+  rabbitconsumer:
+    container_name: rabbitconsumer
+    build: ./RabbitMq   

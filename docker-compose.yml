@@ -6,11 +6,14 @@ services:
     labels:
         SERVICE_80_NAME: Intent-Trainer
         SERVICE_TAG: Intent-Trainer
+    ports:
+      - "3000:8080"      
     depends_on:
-      - rabbitmq        
+      - rabbitmq
   rabbitmq:
     image: rabbitmq:management
     container_name: rabbitmq
     ports:
       - "5672:5672"
-      - "15672:15672"   
+      - "15672:15672"
+               
