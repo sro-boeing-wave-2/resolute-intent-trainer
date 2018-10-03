@@ -14,7 +14,10 @@ exports.CreateIntent = function (USER_SLUG, BOT_SLUG, NAME, DESCRIPTION, QUERY) 
       expressions: QUERY
     })
     .set('Authorization', RECAST_AUTHORIZATION)
-    .end((err, res) => {console.log(res.text)});
+    .end((err, res) => {
+      console.log('Response from RECAST');
+      console.log(res.text);
+    });
 }
 
 exports.AddToIntent = function (USER_SLUG, BOT_SLUG, QUERY, INTENT_SLUG) {
