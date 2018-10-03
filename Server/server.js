@@ -40,11 +40,11 @@ var storage = multer.diskStorage({
 const upload = multer({ storage }).single('training');
 
 app.post('/intent/upload', upload, (req, res, next) => {
-    service.action(req.file.path);
-    res.send('Done');
+  service.action(req.file.path);
+  res.send('Done');
 });
 
 
-var server = app.listen(8080, function () {
-    console.log('Listening on port %d', server.address().port);
+var server = app.listen(80, function () {
+  console.log('Listening on port %d', server.address().port);
 });
