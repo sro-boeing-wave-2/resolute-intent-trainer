@@ -41,7 +41,7 @@ const upload = multer({ storage }).single('training');
 
 app.post('/intent/upload', upload, (req, res, next) => {
   service.action(req.file.path);
-  res.send('Done');
+  res.json();
 });
 
 
