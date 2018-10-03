@@ -4,9 +4,11 @@
 /tmp
 /out-tsc
 
+
+
 # dependencies
-/node_modules
-/RabbitMq
+node_modules
+RabbitMq
 
 # IDEs and editors
 /.idea
