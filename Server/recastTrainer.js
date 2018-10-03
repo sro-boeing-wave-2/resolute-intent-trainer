@@ -8,7 +8,9 @@ const action = (filepath) => {
     .fromFile(filepath)
     .then((trainingData) => {
       console.log(JSON.stringify(trainingData));
-      services.CreateIntent(USER_SLUG, BOT_SLUG, content[0], content[1], JSON.stringify(element));
+      trainingData.forEach((data) => {
+        services.CreateIntent(USER_SLUG, BOT_SLUG, data.intent, data.description, JSON.stringify(data.expressions));
+      });
     });
 };
 
