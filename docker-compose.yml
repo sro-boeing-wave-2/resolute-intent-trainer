@@ -1,16 +1,16 @@
 version: '3'
 services:
   web:
-    container_name: Intent-Trainer
+    container_name: intent-trainer
     build: ./Server
     labels:
-        SERVICE_80_NAME: Intent-Trainer
-        SERVICE_TAG: Intent-Trainer 
+        SERVICE_80_NAME: intent-trainer
+        SERVICE_TAG: intent-trainer
     ports:
       - "3000:80"
   rabbitconsumer:
     container_name: rabbitconsumer
-    build: ./Server/RabbitMq 
-    volumes: 
+    build: ./Server/RabbitMq
+    volumes:
       - "/machine_config:/usr/src/app/machine_config"
-               
+
