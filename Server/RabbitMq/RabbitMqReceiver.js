@@ -27,9 +27,9 @@ open.then(function (conn) {
     return ch.consume(RABBITMQ_QUEUE, function (msg) {
       console.log(msg);
       if (msg !== null) {
-        var data = JSON.parse(msg.content);
+        var data = JSON.parse(msg.content.toString());
         console.log("Message from Queue - ");
-        console.log(msg.content);
+        console.log(msg.content.toString());
         console.log(data);
         if (data.Intent != null) {
           console.log(recastData);
