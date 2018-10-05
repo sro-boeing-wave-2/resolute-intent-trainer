@@ -28,7 +28,7 @@ open.then(function (conn) {
       if (msg !== null) {
         var data = JSON.parse(msg.content);
         console.log("Message from Queue - ");
-        console.log(mgs.content);
+        console.log(msg.content);
         console.log(data);
         if (data.Intent != null) {
           console.log(recastData);
