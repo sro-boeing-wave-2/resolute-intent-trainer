@@ -25,10 +25,11 @@ open.then(function (conn) {
 }).then(function (ch) {
   return ch.assertQueue(RABBITMQ_QUEUE).then(function (ok) {
     return ch.consume(RABBITMQ_QUEUE, function (msg) {
+      console.log(msg);
       if (msg !== null) {
-        var data = JSON.parse(msg.content.toString());
+        var data = JSON.parse(msg.content);
         console.log("Message from Queue - ");
-        console.log(msg.content.toString());
+        console.log(msg.content);
         console.log(data);
         if (data.Intent != null) {
           console.log(recastData);
