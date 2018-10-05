@@ -26,25 +26,35 @@ open.then(function (conn) {
   return ch.assertQueue(RABBITMQ_QUEUE).then(function (ok) {
     return ch.consume(RABBITMQ_QUEUE, function (msg) {
       console.log(msg);
+
       if (msg !== null) {
         var data = JSON.parse(msg.content.toString());
         console.log("Message from Queue - ");
         console.log(msg.content.toString());
         console.log(data);
-        if (data.Intent != null) {
-          console.log(recastData);
-          if (recastData.lastIndexOf(data.intent) == -1) {
-            recastData.push(data.Intent.toLowerCase());
-            functions.
-              CreateIntent(USER_SLUG, BOT_SLUG, data.Intent, data.Description, data.Description);
+        try {
+          if (data.Intent != null) {
+            console.log(recastData);
+            if (recastData.lastIndexOf(data.intent) == -1) {
+              recastData.push(data.Intent.toLowerCase());
+              functions.
+                CreateIntent(USER_SLUG, BOT_SLUG, data.Intent, data.Description, data.Description);
+            }
+            else {
+              console.log(data.intent);
+              functions.
+                AddToIntent(USER_SLUG, BOT_SLUG, data.Description, data.Intent.toLowerCase())
+            }
           }
-          else {
-            console.log(data.intent);
-            functions.
-              AddToIntent(USER_SLUG, BOT_SLUG, data.Description, data.Intent.toLowerCase())
-          }
+
+          ch.ack(msg);
         }
-        ch.ack(msg);
+        catch (Exception) {
+          console.log("Executing catch block");
+          console.log("Message being discarded");
+          console.log(msg);
+          ch.ack(msg);
+        }
       }
     });
   });
