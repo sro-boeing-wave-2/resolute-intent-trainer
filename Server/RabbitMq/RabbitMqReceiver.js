@@ -35,18 +35,20 @@ open.then(function (conn) {
         try {
           if (data.Intent != null) {
             console.log(recastData);
-            if (recastData.lastIndexOf(data.intent) == -1) {
+            console.log(recastData.lastIndexOf(data.Intent));
+            if (recastData.lastIndexOf(data.Intent) == -1) {
+              console.log("adding a new intent");
               recastData.push(data.Intent.toLowerCase());
               functions.
                 CreateIntent(USER_SLUG, BOT_SLUG, data.Intent, data.Description, data.Description);
             }
             else {
-              console.log(data.intent);
+              console.log("updating an older intent");
+              console.log(data.Intent);
               functions.
                 AddToIntent(USER_SLUG, BOT_SLUG, data.Description, data.Intent.toLowerCase())
             }
           }
-
           ch.ack(msg);
         }
         catch (Exception) {
