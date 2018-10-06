@@ -39,14 +39,21 @@ open.then(function (conn) {
             if (recastData.lastIndexOf(data.Intent) == -1) {
               console.log("adding a new intent");
               recastData.push(data.Intent.toLowerCase());
+              var expressionCreate = [{
+                "source": data.Description,
+                "language": {
+                    "isocode": "en"
+                }
+              }];
               functions.
-                CreateIntent(USER_SLUG, BOT_SLUG, data.Intent, data.Description, data.Description);
+                CreateIntent(USER_SLUG, BOT_SLUG, data.Intent, data.Description, expressionCreate);
             }
             else {
               console.log("updating an older intent");
               console.log(data.Intent);
+              var expressionUpdate = data.Description;
               functions.
-                AddToIntent(USER_SLUG, BOT_SLUG, data.Description, data.Intent.toLowerCase())
+                AddToIntent(USER_SLUG, BOT_SLUG, expressionUpdate, data.Intent.toLowerCase())
             }
           }
           ch.ack(msg);
